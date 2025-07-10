@@ -1,11 +1,555 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="th">
+<head>
     <meta charset="UTF-8">
-    <title>เว็บแรกของฉัน</title>
-  </head>
-  <body>
-    <h1>ยินดีต้อนรับสู่เว็บของเรา 🎉</h1>
-    <p>ทำด้วย GitHub Pages แบบฟรีๆ!</p>
-  </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITREE PANEL PREMIUM | iOS/Android</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #0f0c29;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --danger: #d63031;
+            --warning: #fdcb6e;
+            --star: #ffffff;
+        }
+        
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: var(--star);
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+            opacity: 0;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: var(--opacity); }
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(to right, rgba(255,255,255,0), #ffffff);
+            border-radius: 50%;
+            animation: shooting var(--shoot-duration) linear infinite;
+            opacity: 0;
+            transform: rotate(45deg);
+        }
+        
+        .shooting-star:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255,255,255,0), #ffffff);
+            transform-origin: left center;
+        }
+        
+        @keyframes shooting {
+            0% {
+                transform: translateX(0) translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(1000px) translateY(-300px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .credit-banner {
+            background: linear-gradient(90deg, rgba(108,92,231,0.2), rgba(162,155,254,0.3));
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
+            animation: glow 2s infinite alternate;
+            display: inline-block;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .credit-banner span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            background: linear-gradient(to right, #fdcb6e, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to right, #fdcb6e, #e17055);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: "PREMIUM";
+            position: absolute;
+            top: -10px;
+            right: -40px;
+            font-size: 0.8rem;
+            background: var(--danger);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        .subtitle {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 1rem;
+        }
+        
+        .panel {
+            background: rgba(15, 12, 41, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .panel:hover {
+            transform: translateY(-5px);
+        }
+        
+        .panel:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        }
+        
+        .panel-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .panel-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-container:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-label i {
+            margin-right: 10px;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .checkbox-container:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .checkbox-label i {
+            margin-right: 10px;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .custom-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-checkbox.checked {
+            background: var(--success);
+        }
+        
+        .custom-checkbox.checked:after {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            color: white;
+            font-size: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            animation: fadeIn 2s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px -5px #a29bfe;
+            }
+            to {
+                box-shadow: 0 0 20px 2px #a29bfe;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div id="shooting-stars"></div>
+    
+    <div class="container">
+        <div class="credit-banner">
+            <span>พัฒนาโดย ฟิตรี | FITREE PANEL</span>
+        </div>
+        
+        <header>
+            <h1>FITREE PANEL</h1>
+            <p class="subtitle">สำหรับ iOS และ Android</p>
+        </header>
+        
+        <div class="panel">
+            <h2 class="panel-title">
+                <i class="fas fa-gamepad"></i>
+                ตั้งค่าการเล่นเกม
+            </h2>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-hand-pointer"></i>
+                    ช่วยลาก
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-tachometer-alt"></i>
+                    DPI (4990)
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-film"></i>
+                    FPS (140)
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-sync-alt"></i>
+                    144 Hz
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-eye"></i>
+                    จอสมูท
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <h2 class="panel-title">
+                <i class="fas fa-user-shield"></i>
+                การป้องกัน
+            </h2>
+            
+            <div class="checkbox-container" onclick="toggleCheckbox(this)">
+                <label class="checkbox-label">
+                    <i class="fas fa-shield-alt"></i>
+                    กันรายงาน
+                </label>
+                <div class="custom-checkbox"></div>
+            </div>
+            
+            <div class="checkbox-container" onclick="toggleCheckbox(this)">
+                <label class="checkbox-label">
+                    <i class="fas fa-ban"></i>
+                    กันแบน
+                </label>
+                <div class="custom-checkbox"></div>
+            </div>
+            
+            <div class="checkbox-container" onclick="toggleCheckbox(this)">
+                <label class="checkbox-label">
+                    <i class="fas fa-moon"></i>
+                    กันติดดำ
+                </label>
+                <div class="custom-checkbox"></div>
+            </div>
+            
+            <div class="checkbox-container" onclick="toggleCheckbox(this)">
+                <label class="checkbox-label">
+                    <i class="fas fa-trash-alt"></i>
+                    ลบประวัติการรายงาน
+                </label>
+                <div class="custom-checkbox"></div>
+            </div>
+            
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <i class="fas fa-power-off"></i>
+                    เปิดใช้งานพาแนล
+                </label>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>เวอร์ชัน 2.1.0 | © 2023 FITREE PANEL. สงวนลิขสิทธิ์ทุกประการ</p>
+        </div>
+    </div>
+    
+    <script>
+        // Create stars background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size between 1px and 3px
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random opacity and animation duration
+                star.style.setProperty('--opacity', Math.random());
+                star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Create shooting stars
+        function createShootingStars() {
+            const container = document.getElementById('shooting-stars');
+            const count = 5;
+            
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('shooting-star');
+                
+                // Random position
+                star.style.left = `${Math.random() * 20}%`;
+                star.style.top = `${Math.random() * 20}%`;
+                
+                // Random delay and duration
+                star.style.setProperty('--shoot-duration', `${Math.random() * 5 + 3}s`);
+                star.style.animationDelay = `${Math.random() * 20}s`;
+                
+                container.appendChild(star);
+            }
+        }
+        
+        // Toggle checkbox function
+        function toggleCheckbox(container) {
+            const checkbox = container.querySelector('.custom-checkbox');
+            checkbox.classList.toggle('checked');
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            createStars();
+            createShootingStars();
+            
+            // Set all toggles to off by default
+            document.querySelectorAll('.toggle-switch input').forEach(switchEl => {
+                switchEl.checked = false;
+            });
+            
+            // Set all checkboxes to unchecked by default
+            document.querySelectorAll('.custom-checkbox').forEach(checkbox => {
+                checkbox.classList.remove('checked');
+            });
+        });
+    </script>
+</body>
 </html>
